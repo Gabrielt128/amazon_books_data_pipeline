@@ -40,7 +40,6 @@ def get_amazon_data_books(num_books, ti):
         url = f"{base_url}&page={page}"
         
         # Send a request to the URL
-        # response = requests.get(url, headers=headers)
         response = session.get(url, headers=headers)
 
         if response.status_code != 200:
@@ -104,6 +103,7 @@ def insert_book_data_into_postgres(ti):
         raise ValueError("No book data found")
 
     postgres_hook = PostgresHook(postgres_conn_id='amazon_books')
+    postgres_hook.run("DELETE FROM books;")
     insert_query = """
     INSERT INTO books (title, authors, price)
     VALUES (%s, %s, %s)
@@ -120,12 +120,6 @@ default_args = {
     'retry_delay': timedelta(minutes=1),
 }
 
-# dag = DAG(
-#     'fetch_and_store_amazon_books',
-#     default_args=default_args,
-#     description='A simple DAG to fetch book data from Amazon and store it in Postgres',
-#     # schedule_interval=None,
-# )
 with DAG(
     'fetch_and_store_amazon_books',
     default_args=default_args,
@@ -133,15 +127,11 @@ with DAG(
     description='A DAG to fetch book data from Amazon and store it in Postgres',
     schedule_interval=None,
 ) as dag:
-    #operators : Python Operator and PostgresOperator
-    #hooks - allows connection to postgres
-
 
     fetch_book_data_task = PythonOperator(
         task_id='fetch_book_data',
         python_callable=get_amazon_data_books,
-        op_args=[10],  # Number of books to fetch
-        # dag=dag,
+        op_args=[100],  
     )
 
     create_table_task = PostgresOperator(
@@ -156,13 +146,11 @@ with DAG(
             rating TEXT
         );
         """,
-        # dag=dag,
     )
 
     insert_book_data_task = PythonOperator(
         task_id='insert_book_data',
         python_callable=insert_book_data_into_postgres,
-        # dag=dag,
     )
 
 
