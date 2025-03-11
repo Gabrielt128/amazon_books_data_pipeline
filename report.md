@@ -17,7 +17,7 @@ below the services are all components, service is the only required element
 
 The docker compose is based on airflow image, so no need to create any env anywhere outside.
 
-If extra libraries needed, check docs for extending the current docker compose.
+If extra libraries needed, check docs for extending the current docker image and change corresponding part of docker-compose.yaml.
 
 Check the current environments:
 
