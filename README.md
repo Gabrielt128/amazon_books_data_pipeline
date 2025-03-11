@@ -1,4 +1,15 @@
+### About This Repository
 
+This repository is based on the original work ❤️:  
+🔗 [amazon_books_data_pipeline by sunjana2199](https://github.com/sunjana2199/amazon_books_data_pipeline)
+
+With some updates:  
+- Ensuring the Amazon ETL pipeline runs correctly as of today 2025/3/11
+- A few new implementation details   
+- Adding new implementation reports and operational guidelines  
+
+For details, please refer to **report.md**.
+---
 # Amazon Books Data Pipeline 
 -----------
 
