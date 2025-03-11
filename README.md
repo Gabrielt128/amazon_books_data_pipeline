@@ -8,7 +8,7 @@ With some updates:
 - A few new implementation details   
 - Adding new implementation reports and operational guidelines  
 
-For details, please refer to **report.md**.
+Fefer to **report.md** for details.
 ---
 # Amazon Books Data Pipeline 
 -----------
