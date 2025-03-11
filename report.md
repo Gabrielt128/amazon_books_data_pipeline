@@ -11,7 +11,20 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.10.5/docker-compose.
 ```
 
 Inside this docker compose yaml file:
-below the services are all components
+below the services are all components, service is the only required element
+
+### 1.5
+
+The docker compose is based on airflow image, so no need to create any env anywhere outside.
+
+If extra libraries needed, check docs for extending the current docker image and change corresponding part of docker-compose.yaml.
+
+Check the current environments:
+
+```bash
+docker exec -it amazon_books_data_pipeline-airflow-webserver-1 bash
+pip list
+```
 
 ### 2 set-ups
 
@@ -38,3 +51,9 @@ and then we create a second terminal to check everything correct
 ```shell
 docker compose ps
 ```
+
+### 3 connection
+
+When creating connection to postgres from both pgadmin and airflow, just simply use postgres -- the service name of postgres as hostname.
+
+Better not use the exact IP address of postgres service, it change all the time and connection may fail next time.
