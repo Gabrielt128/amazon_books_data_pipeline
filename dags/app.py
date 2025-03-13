@@ -23,8 +23,8 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-session = requests.Session()
-session.headers.update(headers)
+# session = requests.Session()
+# session.headers.update(headers)
 
 def get_amazon_data_books(num_books, ti):
     # Base URL of the Amazon search results for data science books
@@ -40,6 +40,8 @@ def get_amazon_data_books(num_books, ti):
         url = f"{base_url}&page={page}"
         
         # Send a request to the URL
+        session = requests.Session()
+        session.headers.update(headers)
         response = session.get(url, headers=headers)
 
         if response.status_code != 200:
